@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="Contact Us">
+                            <a href="{{ route("contact") }}" class="nav-link" title="Contact Us">
                                 Contact Us
                             </a>
                         </li>
@@ -66,7 +66,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <!-- Navbar Brand -->
-                <a href="index.html" class="navbar-brand">
+                <a href="{{ url("/") }}" class="navbar-brand">
                     <img src="{{ asset('img/logo/color.png') }}" alt="Okurita's Logo" />
                 </a>
                 <div class="collapse navbar-collapse flex-column" id="navbarSearch" data-parent="#header">
@@ -114,8 +114,11 @@
                     </li>
                     <li class="nav-item">
                         <a href="cart.html" class="nav-link" title="Cart">
-                            <i class="fas fa-shopping-basket"></i>
-                            <span class="pulse pulse-warning"></span>
+                            <span class="nav-link__icon">
+                                <i class="fas fa-shopping-basket"></i>
+                                <span class="pulse pulse-warning"></span>
+                            </span>
+                            <span class="nav-link__text">Cart</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -124,29 +127,43 @@
                             <span class="pulse pulse-warning"></span>
                         </a>
                     </li>
-                    <!--If Login-->
-                    <!--<li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user"></i>
+                    @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="nav-link__icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <span class="nav-link__text">Account</span>
                         </a>
-                    </li>-->
-                    <!--/If Login-->
-
+                        <ul class="dropdown-menu dropdown-menu-end position-absolute">
+                          <li><a class="dropdown-item" href="{{ url("mypage") }}">My Page</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item text-danger" id="logout" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                                      
+                    @endauth
+                    @guest
+                    
                     <!--Login/Register CTA on Desktop-->
                     <li class="nav-item nav-item--cta d-desktop d-tablet">
-                        <a href="{{ route("login") }}" class="btn btn-primary" title="Login">
+                        <a href="{{ route("login") }}" class="btn {{ (Request::is('register'))?" btn-grey":"btn-primary" }} " title="Login">
                             Login
                         </a>
-                        <a href="{{ route("register") }}" class="btn btn-grey" title="Sign Up">
+                        <a href="{{ route("register") }}" class="btn {{ (Request::is('register'))?" btn-primary":"btn-grey" }}" title="Sign Up">
                             Sign Up
                         </a>
                     </li>
+                    @endguest
+
+                    @auth
                     <!--Login/Register CTA on Mobile-->
                     <li class="nav-item d-mobile d-tablet-none">
                         <a href="{{ route("login") }}" class="nav-link">
                             <i class="fas fa-user"></i>
                         </a>
                     </li>
+                    @endauth
                 </ul>
             </div>
         </nav>
@@ -175,7 +192,7 @@
                         <div class="col-md-4">
                             <ul>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route("contact") }}">
                                         Contact Us
                                     </a>
                                 </li>
@@ -265,6 +282,15 @@
         </div>
     </div>
 </footer>
-
+<form id="form-logout" method="post" action="{{ route("logout") }}">
+    @csrf
+</form>
+<script>
+$(document).ready(function(){
+    $("#logout").click(function(){
+        $("#form-logout").submit();
+    })
+})
+</script>
 </body>
 </html>
