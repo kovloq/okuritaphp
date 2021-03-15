@@ -197,12 +197,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url("help/corporate-profile") }}">
                                         Corporate Profile
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="policy.html">
+                                    <a href="{{ url("help/privacy-policy") }}">
                                         Privacy Policy
                                     </a>
                                 </li>
@@ -211,17 +211,17 @@
                         <div class="col-md-4">
                             <ul>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url("help/terms-of-service") }}">
                                         Terms of Service
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url("faq") }}">
                                         FAQ
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url("help/usage-fee") }}">
                                         Usage Fee
                                     </a>
                                 </li>
@@ -230,12 +230,12 @@
                         <div class="col-md-4">
                             <ul>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url("help/shipping-method") }}">
                                         Shipping Method
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ url("help/payment-method") }}">
                                         Payment Method
                                     </a>
                                 </li>
@@ -252,7 +252,7 @@
                     <h6 class="mb-2 font-weight-700">Follow Us at</h6>
                     <ul class="social mb-0">
                         <li>
-                            <a href="#" target="_blank" class="text-facebook">
+                            <a href="https://www.facebook.com/okurita.japan/" target="_blank" class="text-facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                         </li>
@@ -262,7 +262,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" target="_blank">
+                            <a href="https://www.instagram.com/okurita.japan" target="_blank">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
