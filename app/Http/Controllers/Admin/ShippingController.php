@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Shipping;
 
 class ShippingController extends Controller
 {
@@ -15,7 +16,8 @@ class ShippingController extends Controller
     public function index()
     {
         //
-        return view("admin.shipping.index");
+        $Shipping=Shipping::all();
+        return view("admin.shipping.index")->with(array("shipping"=>$Shipping));
     }
 
     /**

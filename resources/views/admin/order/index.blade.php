@@ -14,4 +14,36 @@
 		</div>
 	</div>
 </div>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header"><h5>Table head options</h5>
+    </div>
+    <div class="card-block">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">User</th>
+              <th scope="col">OrderNumber</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($order as $row)
+            <tr>
+              <td>{{ $row["id"] }}</td>
+              <td>{{ $row["ordernumber"] }}</td>
+              <td>
+                <form class="delete" action="{{ url("admin/order",$row->id) }}">
+                  @csrf
+                  <input type="submit" value="Delete" class="btn btn-danger"/>
+              </form>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

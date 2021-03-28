@@ -28,7 +28,7 @@ Route::post('contact/thank',[App\Http\Controllers\ContactController::class, 'tha
 //MyPage
 Route::get('mypage',[App\Http\Controllers\MypageController::class, 'index'])->name('mypage');
 Route::get('mypage/order',[App\Http\Controllers\OrderController::class, 'index'])->name('order');
-Route::get('mypage/profile',[App\Http\Controllers\ProfileController::class, 'index'])->name('order');
+Route::get('mypage/profile',[App\Http\Controllers\ProfileController::class, 'index']);
 // Help
 Route::get('help/privacy-policy',[App\Http\Controllers\HelpController::class, 'policy'])->name('policy');
 Route::get('help/corporate-profile',[App\Http\Controllers\HelpController::class, 'corporate'])->name('corporate');

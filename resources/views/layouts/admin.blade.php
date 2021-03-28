@@ -63,9 +63,19 @@
                 <nav class="main-navbar">
                     <div id="mainnav">
                         <ul class="nav-menu custom-scrollbar">
-                            <li class="back-btn"><a href="index.html">
-                                <img class="img-fluid" src="../assets/images/logo/logo-icon.png" alt=""></a></li>
-                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin") }}"><i data-feather="git-pull-request"> </i><span>Dashboard</span></a></li>
+                            <li class="back-btn"><a href="{{ url("admin") }}">
+                                <img class="img-fluid" src="{{ asset("images/logo/logo-icon.png") }}" alt=""></a></li>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin") }}">
+                                <i data-feather="git-pull-request"> </i><span>Dashboard</span></a>
+                            </li>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/order") }}"><i data-feather="git-pull-request"> </i><span>Order</span></a>
+                            </li>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/brand") }}"><i data-feather="git-pull-request"> </i><span>Brand</span></a>
+                            </li>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/shipping") }}"><i data-feather="git-pull-request"> </i><span>Shipping</span></a>
+                            </li>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/user") }}"><i data-feather="git-pull-request"> </i><span>User</span></a>
+                            </li>
                         </ul>
                     </div>
                 </nav>

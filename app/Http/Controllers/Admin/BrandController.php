@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Brand;
 
 class BrandController extends Controller
 {
@@ -15,7 +16,8 @@ class BrandController extends Controller
     public function index()
     {
         //
-        return view("admin.brand.index");
+        $brand=Brand::paginate(10);
+        return view("admin.brand.index")->with(array("brand"=>$brand));
     }
 
     /**

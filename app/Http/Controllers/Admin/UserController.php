@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -12,10 +13,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return view("admin.user.index");
+        $user=User::paginate(10);
+        return view("admin.user.index")->with(array("user"=>$user));
     }
 
     /**
@@ -26,6 +28,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view("admin.create");
     }
 
     /**
@@ -37,6 +40,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        User::create(array(
+            "email"=>$request->email,
+            "name"=>$request->name
+        ));
+        return redirect("admin/user");
     }
 
     /**
@@ -59,6 +67,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        return view("admin.user.edit");
     }
 
     /**
@@ -71,6 +80,11 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        User::find($id)->update(array(
+            "email"=>$request->email,
+            "name"=>$request->name
+        ));
+        return redirect("admin/user");
     }
 
     /**
@@ -82,5 +96,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        User::find($id)->delete();
+        return redirect("admin/user");
     }
 }
