@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Shipping;
+use App\Models\ShippingFee;
 
-class ShippingController extends Controller
+class ShippingFeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //
-        $Shipping=Shipping::all();
-        return view("admin.shipping.index")->with(array("shipping"=>$Shipping));
+        $fee=ShippingFee::where("shipping_id",$id)->paginate(30);
+        return view("admin.shipping_fee.index")->with(array("fee"=>$fee));
     }
 
     /**

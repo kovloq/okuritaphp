@@ -7,7 +7,7 @@
             @include('layouts.sidebar')
             <div class="col-lg-9 col-md-9">
                 <section class="account-detail pt-5">
-                    <h1 class="mb-2">My Profile</h1>
+                    <h1 class="mb-2">Order</h1>
                     <div class="card mb-0">
                         <div class="card-body p-4">
                             <table class="table">

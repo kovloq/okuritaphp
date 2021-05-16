@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
 <div class="page page--contact bg-light-green bg-leaf">
     <section class="contact pt-5">
         <div class="container">
-            <form method="post" action="{{ url("contact") }}">
+            <form method="post" id="contact_form" action="{{ url("contact") }}">
 				@csrf
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
@@ -27,7 +29,7 @@
                                                 Name<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-md-9">
-                                              <input type="text" class="form-control @if($errors->has('name')) is-invalid @endif" id="name" value="John Doe">
+                                              <input type="text" name="name" placeholder="Your Name" class="form-control @if($errors->has('name')) is-invalid @endif" id="name" required>
 										      @if($errors->has('name'))
 										      	<div class="invalid-feedback">
 										        	{{$errors->first('name')}}
@@ -40,7 +42,7 @@
                                                 Email<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-md-9">
-                                              <input type="email" class="form-control @if($errors->has('email')) is-invalid @endif" id="name" aria-describedby="emailHelp" value="email@example.com">
+                                              <input type="email" name="email" placeholder="email@domain.com" class="form-control @if($errors->has('email')) is-invalid @endif" id="name" aria-describedby="emailHelp" required>
 										      <div id="emailHelp" class="form-text ">We'll never share your email with anyone else.</div>
 										      	@if($errors->has('email'))
 										      	<div class="invalid-feedback">
@@ -54,7 +56,7 @@
                                                 Inquiry Content<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-md-9">
-                                                <select class="form-select" id="inquiryContent" aria-label="Please Select" required>
+                                                <select class="form-select" name="contact_category" id="inquiryContent" aria-label="Please Select" required>
                                                     <option value="Payment">Payment</option>
 											      	<option value="Error">Error</option>
 											      	<option value="Shopping">Shopping</option>
@@ -62,6 +64,11 @@
 											      	<option value="Prohibited Item">Prohibited Item</option>
 											      	<option value="Other">Other</option>
                                                 </select>
+                                                @if($errors->has('contact_category'))
+                                                <div class="invalid-feedback">
+                                                    {{$errors->first('contact_category')}}
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -69,7 +76,7 @@
                                                 Message<span class="text-danger">*</span>
                                             </label>
                                             <div class="col-md-9">
-                                              <textarea class="form-control @if($errors->has('message')) is-invalid @endif" name="message"></textarea>
+                                              <textarea rows="8" class="form-control @if($errors->has('message')) is-invalid @endif" name="message"></textarea>
 												@if($errors->has('message'))
 										      	<div class="invalid-feedback">
 										        	{{$errors->first('message')}}
@@ -77,16 +84,13 @@
 										    	@endif
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="attachment" class="col-md-3 col-form-label">
-                                                Attachment
-                                            </label>
-                                            <div class="col-md-9">
-                                              <input type="file" class="form-control" id="attachment">
-                                            </div>
-                                        </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">Confirm Message</button>
+                                            <button type="submit" class="btn btn-primary"
+                                            class="g-recaptcha" 
+                                            data-sitekey="6LcOpqgaAAAAAN3nmJJ6xa2E3GsQv3qWm-7bVWlw" 
+                                            data-callback='onSubmit' 
+                                            data-action='submit'
+                                            >Send Message</button>
                                         </div>
                                     </div>
                                 </div>
@@ -98,5 +102,10 @@
         </div>
     </section>
 </div>
+<script>
+   function onSubmit(token) {
+     document.getElementById("contact_form").submit();
+   }
+ </script>
 
 @endsection

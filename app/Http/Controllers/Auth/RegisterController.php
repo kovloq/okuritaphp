@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,9 +53,24 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'country_id' => ['required', 'integer'],
+            "year"=>["required"],
+            "month"=>["required"],
+            "date"=>["required"],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $country=Country::all();
+        return view('auth.register', compact('country'));
     }
 
     /**
@@ -68,6 +84,10 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            "gender"=>$data["gender"],
+            "birthdate"=>$data["year"]."-".$data["month"]."-".$data["date"],
+            'is_newsletter' => $data['is_newsletter'],
+            'country_id' => $data['country_id'],
             'password' => Hash::make($data['password']),
         ]);
     }

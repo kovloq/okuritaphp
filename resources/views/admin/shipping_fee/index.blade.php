@@ -23,14 +23,22 @@
         <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Name</th>
+              <th scope="col">Weight</th>
+              <th scope="col">Area 1</th>
+              <th scope="col">Area 2</th>
+              <th scope="col">Area 3</th>
+              <th scope="col">Area 4</th>
               <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($shipping as $row)
+            @foreach($fee as $row)
             <tr>
-              <td><a href="{{ url("admin/shipping/".$row->id."/fee") }}">{{ $row["name"] }}</a></td>
+              <td>{{ $row["weight"] }}</td>
+              <td>{{ $row["area_1"] }}</td>
+              <td>{{ $row["area_2"] }}</td>
+              <td>{{ $row["area_3"] }}</td>
+              <td>{{ $row["area_4"] }}</td>
               <td>
                 <form class="delete" action="{{ url("admin/shipping",$row->id) }}">
                   @csrf
@@ -42,6 +50,7 @@
           </tbody>
         </table>
       </div>
+      {{ $fee->links() }}
     </div>
   </div>
 </div>

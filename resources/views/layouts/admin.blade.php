@@ -65,16 +65,16 @@
                         <ul class="nav-menu custom-scrollbar">
                             <li class="back-btn"><a href="{{ url("admin") }}">
                                 <img class="img-fluid" src="{{ asset("images/logo/logo-icon.png") }}" alt=""></a></li>
-                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin") }}">
-                                <i data-feather="git-pull-request"> </i><span>Dashboard</span></a>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="")?"active":"" }}" href="{{ url("admin") }}">
+                                <i data-feather="git-pull-request"> </i><span>Dashboard </span></a>
                             </li>
-                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/order") }}"><i data-feather="git-pull-request"> </i><span>Order</span></a>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="order")?"active":"" }}" href="{{ url("admin/order") }}"><i data-feather="git-pull-request"> </i><span>Order</span></a>
                             </li>
-                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/brand") }}"><i data-feather="git-pull-request"> </i><span>Brand</span></a>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="brand")?"active":"" }}" href="{{ url("admin/brand") }}"><i data-feather="git-pull-request"> </i><span>Brand</span></a>
                             </li>
-                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/shipping") }}"><i data-feather="git-pull-request"> </i><span>Shipping</span></a>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="shipping")?"active":"" }}" href="{{ url("admin/shipping") }}"><i data-feather="git-pull-request"> </i><span>Shipping</span></a>
                             </li>
-                            <li class="dropdown"><a class="nav-link menu-title link-nav" href="{{ url("admin/user") }}"><i data-feather="git-pull-request"> </i><span>User</span></a>
+                            <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="user")?"active":"" }}" href="{{ url("admin/user") }}"><i data-feather="git-pull-request"> </i><span>User</span></a>
                             </li>
                         </ul>
                     </div>
@@ -100,7 +100,7 @@
     <script src="{{ asset("assets/js/feather.min.js") }}"></script>
     <script src="{{ asset("assets/js/feather-icon.js") }}"></script>
     <!-- Sidebar jquery-->
-    <script src="{{ asset("assets/js/sidebar-menu.js") }}"></script>
+    <!-- <script src="{{ asset("assets/js/sidebar-menu.js") }}"></script> -->
     <script src="{{ asset("assets/js/config.js") }}"></script>
     <!-- Plugins JS start-->
     <script src="{{ asset("assets/js/tooltip-init.js") }}"></script>

@@ -19,6 +19,7 @@
     <!-- jQuery -->
     <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/toastr.min.js') }}"></script><!-- ToastR -->
     <!-- Styles -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,6 +30,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/><!-- Bootstrap -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet"/><!-- Font awesome -->
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet"/><!-- ToastR -->
     @yield('head')
 </head>
 <body>
@@ -39,13 +41,13 @@
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarcollapse" data-parent="#header">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" title="About Okurita">
+                        <!-- <li class="nav-item">
+                            <a href="{{ url("help/corporate-profile") }}" class="nav-link" title="About Okurita">
                                 About Okurita
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
-                            <a href="#" class="nav-link" title="FAQ">
+                            <a href="{{ url("faq") }}" class="nav-link" title="FAQ">
                                 FAQ
                             </a>
                         </li>
@@ -112,7 +114,7 @@
                             <i class="fas fa-search"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="cart.html" class="nav-link" title="Cart">
                             <span class="nav-link__icon">
                                 <i class="fas fa-shopping-basket"></i>
@@ -126,7 +128,7 @@
                             <i class="fas fa-bell"></i>
                             <span class="pulse pulse-warning"></span>
                         </a>
-                    </li>
+                    </li> -->
                     @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -289,7 +291,27 @@
 $(document).ready(function(){
     $("#logout").click(function(){
         $("#form-logout").submit();
-    })
+    });
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-center-center",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+    @if (session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
 })
 </script>
 </body>
