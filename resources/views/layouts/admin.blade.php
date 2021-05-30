@@ -110,6 +110,10 @@
         $("#logout").click(function(){
             $("#form_logout").submit();
         })
+        $(".delete").submit(function(){
+            var r=confirm("Delete this record?");
+            return r;
+        })
     });
     </script>
   </body>

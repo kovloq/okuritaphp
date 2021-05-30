@@ -70,3 +70,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('logout',[App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('admin.logout');
 });
 //
+// Lazismu
+Route::get('lazismu',[App\Http\Controllers\LazismuController::class, 'index'])->name("lazismu");
+Route::post('pdf',[App\Http\Controllers\LazismuController::class, 'pdf'])->name("lazismu_pdf");
