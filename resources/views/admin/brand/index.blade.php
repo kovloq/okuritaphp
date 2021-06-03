@@ -24,7 +24,7 @@
           </div>
           <div class="col-sm-6">
             <div class="text-right">
-              <div class="form-group mb-0 mr-0"></div><a class="btn btn-primary" href="{{ url("admin/brand/create") }}"> <i data-feather="plus-square"> </i>Create New Project</a>
+              <div class="form-group mb-0 mr-0"></div><a class="btn btn-primary" href="{{ url("admin/brand/create") }}"> <i data-feather="plus-square"> </i>Create New Brand</a>
             </div>
           </div>
         </div>

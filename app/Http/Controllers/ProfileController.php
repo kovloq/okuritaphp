@@ -20,11 +20,7 @@ class ProfileController extends Controller
     public function update(Request $request, $id){
     	$request->validate(array(
             "name"=>"required|string|max:255",
-            'country_id' => 'required|integer',
-            'year' => 'required',
-            'month' => 'required',
-            'date' => 'required',
-            'gender' => 'required'
+            'country_id' => 'required|integer'
         ));
     	
     	User::find(Auth::id())->update(array(

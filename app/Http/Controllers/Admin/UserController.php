@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Country;
 
 class UserController extends Controller
 {
@@ -67,7 +68,9 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        return view("admin.user.edit");
+        $user=User::find($id);
+        $country=Country::all();
+        return view("admin.user.edit")->with(array("user"=>$user,"country"=>$country));
     }
 
     /**
@@ -80,11 +83,33 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        User::find($id)->update(array(
-            "email"=>$request->email,
-            "name"=>$request->name
+        $request->validate(array(
+            "name"=>"required|string|max:255",
+            "email"=>"required|email",
+            'country_id' => 'required|integer'
         ));
-        return redirect("admin/user");
+        $user=array(
+            "name"=>$request->name,
+            "email"=>$request->email,
+            "is_newsletter"=>$request->is_newsletter,
+            "gender"=>$request->gender,
+            "country_id"=>$request->country_id
+        );
+        if($request->year || $request->month || $request->date){
+            $year=($request->year)?$request->year:"0000";
+            $month=($request->month)?$request->month:"01";
+            $date=($request->date)?$request->date:"01";
+            $user["birthdate"]=$year."-".$month."-".$date;
+        }
+        if($request->year && $request->month && $request->date){
+            $user["birthdate"]=$request->year."-".$request->month."-".$request->date;
+        }
+        if(empty($request->year) && empty($request->month) && empty($request->date)){
+            $user["birthdate"]=null;
+        }
+
+        User::find($id)->update($user);
+        return redirect("admin/user")->with('success', 'Profile updated!');
     }
 
     /**

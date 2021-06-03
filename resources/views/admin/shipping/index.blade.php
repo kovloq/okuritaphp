@@ -16,7 +16,7 @@
 </div>
 <div class="container-fluid">
   <div class="card">
-    <div class="card-header"><h5>Table head options</h5>
+    <div class="card-header"><h5>Shipping</h5>
     </div>
     <div class="card-block">
       <div class="table-responsive">

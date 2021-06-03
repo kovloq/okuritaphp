@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header"><h5>Table head options</h5>
+        <div class="card-header"><h5>Order</h5>
         </div>
         <div class="card-block">
           <div class="table-responsive">
@@ -26,6 +26,8 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">User</th>
+                  <th>Amount</th>
+                  <th>Status</th>
                   <th scope="col">OrderNumber</th>
                 </tr>
               </thead>
@@ -33,6 +35,8 @@
                 @foreach($order as $row)
                 <tr>
                   <td>{{ $row["id"] }}</td>
+                  <td>{{ $row["amount"] }}</td>
+                  <td>{{ $row["status_id"] }}</td>
                   <td>{{ $row["ordernumber"] }}</td>
                   <td>
                     <form class="delete" action="{{ url("admin/order",$row->id) }}">
