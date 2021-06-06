@@ -26,18 +26,25 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">User</th>
-                  <th>Amount</th>
-                  <th>Status</th>
                   <th scope="col">OrderNumber</th>
+                  <th>Amount</th>
+                  <th>Fee</th>
+                  <th>Status</th>
+                  
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
+                <?php 
+                $order_status=Config::get('constants.order_status');
+                ?>
                 @foreach($order as $row)
                 <tr>
-                  <td>{{ $row["id"] }}</td>
-                  <td>{{ $row["amount"] }}</td>
-                  <td>{{ $row["status_id"] }}</td>
-                  <td>{{ $row["ordernumber"] }}</td>
+                  <td>{{ $row->user->name }}</td>
+                  <td><a href="{{ url("admin/order",$row->id) }}">{{ $row["ordernumber"] }}</a></td>
+                  <td>{{ number_format($row["amount"]) }}</td>
+                  <td>{{ number_format($row["commission_fee"]) }}</td>
+                  <td>{{ $order_status[$row["status_id"]] }}</td>
                   <td>
                     <form class="delete" action="{{ url("admin/order",$row->id) }}">
                       @csrf

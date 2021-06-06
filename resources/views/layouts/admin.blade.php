@@ -68,6 +68,10 @@
                             <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="")?"active":"" }}" href="{{ url("admin") }}">
                                 <i data-feather="git-pull-request"> </i><span>Dashboard </span></a>
                             </li>
+                            <li><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="product")?"active":"" }}" href="{{ url("admin/product") }}"><i data-feather="git-pull-request"> </i><span>Product</span></a>
+                            </li>
+                            <li><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="category")?"active":"" }}" href="{{ url("admin/category") }}"><i data-feather="git-pull-request"> </i><span>Category</span></a>
+                            </li>
                             <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="order")?"active":"" }}" href="{{ url("admin/order") }}"><i data-feather="git-pull-request"> </i><span>Order</span></a>
                             </li>
                             <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="brand")?"active":"" }}" href="{{ url("admin/brand") }}"><i data-feather="git-pull-request"> </i><span>Brand</span></a>

@@ -18,10 +18,12 @@ class CreateOrderDetailsTable extends Migration
             $table->string("image")->nullable();
             $table->string("variant")->nullable();
             $table->integer("quantity");
-            $table->string("title");
+            $table->string("name");
             $table->text("description");
             $table->boolean("is_preorder")->nullable();
-            $table->integer("order_id");
+            $table->unsignedBigInteger("order_id");
+            $table->index("order_id");
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->integer("price");
             $table->timestamps();
         });

@@ -57,6 +57,7 @@ Route::middleware(["auth:admin"])->prefix('admin')->group(function () {
 	Route::get('/',[App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin');
 	Route::resource('brand',App\Http\Controllers\Admin\BrandController::class);
 	Route::resource('category',App\Http\Controllers\Admin\CategoryController::class);
+	Route::resource('product',App\Http\Controllers\Admin\ProductController::class);
 	Route::resource('order',App\Http\Controllers\Admin\OrderController::class);
 	Route::resource('shipping',App\Http\Controllers\Admin\ShippingController::class);
 	Route::resource('shipping.fee',App\Http\Controllers\Admin\ShippingFeeController::class);

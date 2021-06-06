@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductCategory;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,10 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        $category=Category::all();
-        return view("admin.category.index")->with(array("category"=>$category));
+        $product=Product::paginate(30);
+         return view("admin.product.index")->with(array(
+            "product"=>$product
+         ));
     }
 
     /**
@@ -28,7 +32,12 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view("admin.brand.create");
+        $category=Category::all();
+        $productcategory=ProductCategory::all();
+        return view("admin.product.create")->with(array(
+            "category"=>$category,
+            "productcategory"=>$productcategory
+        ));
     }
 
     /**
@@ -40,13 +49,6 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate(array(
-            "name"=>"required"
-        ));
-        Category::create(array(
-            "name"=>$request->name
-        ));
-        return redirect('admin/category')->with('success', 'Inserted');
     }
 
     /**
@@ -69,8 +71,14 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        $category=Category::find($id);
-        return view("admin.category.edit")->with(array("category"=>$category));
+        $category=Category::all();
+        $productcategory=ProductCategory::all();
+        $product=Product::find($id);
+        return view("admin.product.edit")->with(array(
+            "product"=>$product,
+            "category"=>$category,
+            "productcategory"=>$productcategory
+        ));
     }
 
     /**
@@ -83,13 +91,10 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate(array(
-            "name"=>"required"
+        Product::find($id)->update(array(
+            ""
         ));
-        Category::find($id)->update(array(
-            "name"=>$request->name
-        ));
-        return redirect('admin/category')->with('success', 'Updated');
+        return redirect("admin/product");
     }
 
     /**
@@ -101,7 +106,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-        Category::find($id)->delete();
-        return redirect('admin/category')->with('success', 'Deleted');
+        Product::find($id)->delete();
+        return redirect()->back();
     }
 }
