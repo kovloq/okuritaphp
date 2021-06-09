@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->index("brand_id");
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->text("description")->nullable();
+            $table->integer("price")->nullable();
             $table->timestamps();
         });
     }

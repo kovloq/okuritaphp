@@ -62,6 +62,7 @@ Route::middleware(["auth:admin"])->prefix('admin')->group(function () {
 	Route::resource('shipping',App\Http\Controllers\Admin\ShippingController::class);
 	Route::resource('shipping.fee',App\Http\Controllers\Admin\ShippingFeeController::class);
 	Route::resource('user',App\Http\Controllers\Admin\UserController::class);
+	Route::resource('news',App\Http\Controllers\Admin\NewsController::class);
 	// Route::get("order"[])
 });
 // Admin auth Login

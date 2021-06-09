@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductCategory;
+use App\Models\ProductImage;
+use App\Models\Brand;
 
 class ProductController extends Controller
 {
@@ -33,9 +35,11 @@ class ProductController extends Controller
     {
         //
         $category=Category::all();
+        $brand=Brand::all();
         $productcategory=ProductCategory::all();
         return view("admin.product.create")->with(array(
             "category"=>$category,
+            "brand"=>$brand,
             "productcategory"=>$productcategory
         ));
     }
@@ -49,6 +53,25 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->file('images'))
+        $product=Product::create(array(
+            "name"=>$request->name,
+            "brand_id"=>$request->brand_id,
+            "category_id"=>$request->category_id,
+            "price"=>$request->price,
+            "product_category_id"=>$request->product_category_id,
+            "description"=>$request->description
+        ));
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $row){
+                $path = $row->store('product');
+                ProductImage::create(array(
+                    "product_id"=>$product["id"],
+                    "path"=>$path
+                ));
+            }
+        }
+        return redirect("admin/product");
     }
 
     /**

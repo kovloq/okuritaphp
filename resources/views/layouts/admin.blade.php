@@ -70,6 +70,8 @@
                             </li>
                             <li><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="product")?"active":"" }}" href="{{ url("admin/product") }}"><i data-feather="git-pull-request"> </i><span>Product</span></a>
                             </li>
+                            <li><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="news")?"active":"" }}" href="{{ url("admin/news") }}"><i data-feather="git-pull-request"> </i><span>News</span></a>
+                            </li>
                             <li><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="category")?"active":"" }}" href="{{ url("admin/category") }}"><i data-feather="git-pull-request"> </i><span>Category</span></a>
                             </li>
                             <li class="dropdown"><a class="nav-link menu-title link-nav {{ (request()->segment(2)=="order")?"active":"" }}" href="{{ url("admin/order") }}"><i data-feather="git-pull-request"> </i><span>Order</span></a>
