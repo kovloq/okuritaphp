@@ -4,8 +4,10 @@
 
 <link rel="stylesheet" type="text/css" media="all" href="{{ asset("css/cloudzoom.css") }}">
 <link rel="stylesheet" type="text/css" media="all" href="{{ asset("css/thumbelina.css") }}">
+<link rel="stylesheet" type="text/css" media="all" href="{{ asset("css/iziToast.min.css") }}">
 <script type="text/javascript" src="{{ asset("js/cloudzoom.js") }}"></script>
 <script type="text/javascript" src="{{ asset("js/thumbelina.js") }}"></script>
+<script type="text/javascript" src="{{ asset("js/iziToast.min.js") }}"></script>
 <script>
 	$(document).ready(function(){
 		CloudZoom.quickStart();
@@ -68,7 +70,7 @@
                     </nav>
                     <div class="row">
                         <div class="col-md-11 col-10">
-                            <h1 class="product-title">ADIDAS ULTRA BOOST CG3038 TRIPLE BLACK </h1>
+                            <h1 class="product-title">{{ $product->name }}</h1>
                         </div>
                         <div class="col-md-1 col-2 text-right">
                             <a href="#" class="product-share">
@@ -92,9 +94,15 @@
                         </div>
                     </div>
                     <h2 class="product-price">
-                        US$ 276.00
+                        
+                        ￥ {{ number_format($product->price) }}
                     </h2>
-                    <form action="">
+                    <form id="cart" action="{{ url("cart") }}" method="POST">
+                        <input type="hidden" name="price" value="{{ $product->price }}"/>
+                        <input type="hidden" name="id" value="{{ $product->id }}"/>
+                        <input type="hidden" value="{{ $product->name }}" name="name"/>
+                        @csrf
+                        {{ method_field("POST") }}
                         <div class="product-vendor">
                             <div class="product-vendor__item">
                                 <input type="radio" name="vendor" id="vendor-1" checked>
@@ -126,7 +134,7 @@
                                 <p class="product-meta mb-10px">Quantity</p>
                                 <div class="product-qty">
                                     <button type="button" class="btn btn-qty">-</button>
-                                    <input type="number" min="1" class="form-control" value="1">
+                                    <input type="number" min="1" id="quantity" name="quantity" class="form-control" value="1">
                                     <button type="button" class="btn btn-qty">+</button>
                                 </div>
                             </div>
@@ -208,18 +216,19 @@
                         </div>
                         <div class="product-action">
                             <div class="row">
+                                
+                                <div class="col-md-auto">
+                                    <button type="button" id="add_cart" class="btn btn-primary text-uppercase">
+                                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                </div>
                                 <div class="col-md-auto">
                                     <button type="submit" class="btn btn-primary text-uppercase">
-                                        Buy Now
+                                        <i class="far fa-heart"></i> Watchlist
                                     </button>
                                 </div>
                                 <div class="col-md-auto">
-                                    <button type="button" class="btn btn-primary text-uppercase">
-                                        Add to Cart
-                                    </button>
-                                </div>
-                                <div class="col-md-auto">
-                                    <a href="#" class="btn btn-primary text-uppercase">
+                                    <a href="#" target="_blank" class="btn btn-primary text-uppercase">
                                         View on Yahoo! Auction
                                     </a>
                                 </div>
@@ -232,14 +241,7 @@
     </section>
     <section class="product-description py-0" id="product-description">
         <div class="container border-bottom pb-5">
-            <p>
-                商品説明<br>
-                ■ ブランド説明1948年設立のドイツのスポーツメーカー。靴職人の息子であるアドルフ・ダスラーが1920年「ダスラー兄弟商会」を設立したのが始まり。<br>
-                ■ アイテム説明【 Y - 3 】 アディダスと山本耀司氏とのコラボレーションブランド。 革新的なスポーツウェアとして注目を集めています。 ファッション性が高く未来的なシル   	     エットでかなりのインパクトを与えてくれるY-3からピュアブースト スニーカーの入荷です。 軽量で履きやすく、ソールには衝撃吸収性と反発性にとても優れたBOOST(	     ブースト)を使用しているので、デザイン性はもちろん機能性ともに優た一足です。 お色はブラックです。<br>
-                ■ アイテム詳細・MADE IN CHINA ・型番：CP9888 ・カラー：CBLACK/CBLACK/CBLACK<br>
-                ■ サイズ感こちらは平均的なスニーカーの普段履きのサイズにてジャストでご着用頂けるサイズ感になります。<br>
-                幅広・甲高の方の場合、0.5cmアップでのご着用をお勧めします。
-            </p>
+            {{ $product->description }}
         </div>
     </section>
     <section class="product-related py-5" id="product-related">
@@ -525,4 +527,38 @@
         </div>
     </section>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    
+
+    var cart=$("#cart").serialize();
+    $("#add_cart").click(function(){
+        $.ajax({
+          type: "POST",
+          url: $("#cart").attr("action"),
+          data: cart,
+          success: function(data){
+            iziToast.success({
+                title: 'Cart',
+                position:"center",
+                icon:"far fa-check-circle",
+                message: 'Successfully inserted into cart',
+            });
+            var cart_count=$("#cart_count").text();
+            var qty=$("#quantity").val();
+            if($("#cart_count").length==0){
+                $("#cart_icon").append('<span style="font-size:0.5em" id="cart_count"class="badge rounded-pill bg-secondary">'+data+'</span>');
+            }else{
+                $("#cart_count").text(data);
+            }
+            // console.log(data);
+          },
+          fail:function(data){
+
+            alert("failed");
+          }
+        });
+    });
+})
+</script>
 @endsection

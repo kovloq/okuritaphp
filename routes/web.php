@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\Admin\BrandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,8 +22,21 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 // Route::get('home', [App\Http\Controllers\HomeController::class, 'index']);
 // Contact
 Route::get('contact',[App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+Route::get('payment',[App\Http\Controllers\PaymentController::class, 'index'])->name('payment');
+Route::get('payment/complete',[App\Http\Controllers\PaymentController::class, 'complete'])->name('payment_complete');
+Route::post('payment/stripe',[App\Http\Controllers\PaymentController::class, 'stripe'])->name('stripe');
+Route::post('payment',[App\Http\Controllers\PaymentController::class, 'store']);
 Route::post('contact',[App\Http\Controllers\ContactController::class, 'store']);
 Route::get('contact/thank',[App\Http\Controllers\ContactController::class, 'thank']);
+Route::get('category/{cat}',[App\Http\Controllers\ProductController::class, 'index']);
+Route::get('product/{id}/{name?}',[App\Http\Controllers\ProductController::class, 'show']);
+// Cart 
+Route::resource('cart',App\Http\Controllers\CartsController::class);
+//Faq
+Route::get('faq', App\Http\Controllers\FaqController::class);
+//News
+Route::get('news/{id}/{slug?}',[App\Http\Controllers\NewsController::class, 'show']);
+Route::get('news',[App\Http\Controllers\NewsController::class, 'index']);
 
 Route::middleware(["auth"])->group(function () {
 	//MyPage
@@ -51,7 +63,6 @@ Route::get('help/payment-method',[App\Http\Controllers\HelpController::class, 'p
 // Product
 Route::get('product',[App\Http\Controllers\ProductController::class, 'index'])->name('product');
 Route::get('product/detail',[App\Http\Controllers\ProductController::class, 'detail'])->name('product_detail');
-Route::get('faq',[App\Http\Controllers\FaqController::class, 'index'])->name('faq');
 // Admin
 Route::middleware(["auth:admin"])->prefix('admin')->group(function () {
 	Route::get('/',[App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin');

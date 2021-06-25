@@ -114,16 +114,21 @@
                             <i class="fas fa-search"></i>
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a href="cart.html" class="nav-link" title="Cart">
-                            <span class="nav-link__icon">
+                    <li class="nav-item">
+                        <a href="{{ url("cart") }}" class="nav-link" title="Cart">
+                            <span id="cart_icon" class="nav-link__icon">
                                 <i class="fas fa-shopping-basket"></i>
-                                <span class="pulse pulse-warning"></span>
+                                <?php 
+                                $cnt=\Cart::count();
+
+                                 ?>
+                                @if($cnt)<span style="font-size:0.5em" id="cart_count"class="badge rounded-pill bg-secondary">{{ $cnt }}</span>@endif
+                                <!-- <span class="pulse">{{ $cnt }}</span> -->
                             </span>
                             <span class="nav-link__text">Cart</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a href="#" class="nav-link" title="Notifications">
                             <i class="fas fa-bell"></i>
                             <span class="pulse pulse-warning"></span>

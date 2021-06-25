@@ -415,6 +415,7 @@ $(document).ready(function(){
                     </div>
                     <div class="news-wrapper">
                         <div class="news-slide">
+                            @foreach($news as $row)
                             <div class="news-slide__item">
                                 <div class="card card-news">
                                     <div class="card-img">
@@ -424,52 +425,28 @@ $(document).ready(function(){
                                         <div class="card-meta">
                                             <div class="card-meta__item">
                                                 <a href="#" class="card-meta__item-category">
-                                                    Tips
+                                                    News
                                                 </a>
                                             </div>
                                             <div class="card-meta__item">
-                                                <p class="card-meta__item-date">18 November 2020</p>
+                                                <p class="card-meta__item-date">{{ date("d F Y",strtotime($row->created_at)) }}</p>
                                             </div>
                                         </div>
                                         <h3 class="card-title">
-                                            <a href="#">PERFECT GRADE UNLEASHED RX-78-2 GUNDAM - RELEASE INFO</a>
+                                            <a href="{{ url("news",$row->id) }}/{{ Str::slug($row->title, '-') }}">{{ $row->title }}</a>
                                         </h3>
                                         <p class="card-excerpt">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                                            {{ $row->content }}
                                         </p>
-                                        <a href="#" class="card-readmore">Read More <i class="fas fa-angle-right"></i></a>
+                                        <a href="{{ url("news",$row->id) }}/{{ Str::slug($row->title, '-') }}" class="card-readmore">Read More <i class="fas fa-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="news-slide__item">
-                                <div class="card card-news">
-                                    <div class="card-img">
-                                        <img src="{{ asset('img/blog/3.png') }}" alt="Gundam" />
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="card-meta">
-                                            <div class="card-meta__item">
-                                                <a href="#" class="card-meta__item-category">
-                                                    Tips
-                                                </a>
-                                            </div>
-                                            <div class="card-meta__item">
-                                                <p class="card-meta__item-date">18 November 2020</p>
-                                            </div>
-                                        </div>
-                                        <h3 class="card-title">
-                                            <a href="#">PERFECT GRADE UNLEASHED RX-78-2 GUNDAM - RELEASE INFO</a>
-                                        </h3>
-                                        <p class="card-excerpt">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-                                        </p>
-                                        <a href="#" class="card-readmore">Read More <i class="fas fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
+                            
                         </div>
                     </div>
-                    <a href="#" class="see-all">
+                    <a href="{{ url("news") }}" class="see-all">
                         See All
                     </a>
                 </div>

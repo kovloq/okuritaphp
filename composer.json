@@ -10,15 +10,18 @@
     "require": {
         "php": "^7.3|^8.0",
         "elibyy/tcpdf-laravel": "^8.1",
+        "fabpot/goutte": "^4.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "hardevine/shoppingcart": "^3.0",
         "inertiajs/inertia-laravel": "^0.3.6",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "rap2hpoutre/laravel-log-viewer": "^1.7",
-        "spatie/schema-org": "^3.3"
+        "spatie/schema-org": "^3.3",
+        "stripe/stripe-php": "^7.85"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -43,7 +46,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\News;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
-class NewsController extends Controller
+class CartsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,12 @@ class NewsController extends Controller
     public function index()
     {
         //
-        $news=News::paginate(10);
-        return view("admin.news.index")->with(array("news"=>$news));
+        
+        $cart=Cart::content();
+        $total=Cart::total();
+        $count=Cart::count();
+        $total=str_replace(",","",$total);
+        return view("cart.index")->with(array("cart"=>$cart,"total"=>$total,"count"=>$count));
     }
 
     /**
@@ -28,7 +32,6 @@ class NewsController extends Controller
     public function create()
     {
         //
-        return view("admin.news.create");
     }
 
     /**
@@ -39,20 +42,21 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate(array(
-            "title"=>"required",
-            "content"=>"required"
-        ));
-        if($request->hasFile('image')){
-            $path=$request->file('image')->store('news');
+        $product_id=$request->id;
+        // ID,name,Quantity,Price
+        $duplicates = Cart::search(function ($cartItem, $rowId) use ($product_id){
+            return $cartItem->id === $product_id;
+        });
+
+        if ($duplicates->isNotEmpty()) {
+            // return redirect()->route('cart.index')->with('success_message', 'Item is already in your cart!');
         }
-        News::create(array(
-            "title"=>$request->title,
-            "image"=>$path,
-            "content"=>$request->content
-        ));
-        return redirect('admin/news')->with('success', 'Inserted');
+
+        $cart=Cart::add($request->id, $request->name, $request->quantity, $request->price)
+            ->associate('App\Models\Product');
+
+        $count=Cart::count();
+        return response()->json($count);
     }
 
     /**
@@ -75,8 +79,6 @@ class NewsController extends Controller
     public function edit($id)
     {
         //
-        $news=News::find($id);
-        return view("admin.news.edit")->with(array("news"=>$news));
     }
 
     /**
@@ -89,7 +91,6 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        return redirect('admin/news')->with('success', 'Updated');
     }
 
     /**
@@ -101,7 +102,9 @@ class NewsController extends Controller
     public function destroy($id)
     {
         //
-        News::find($id)->delete();
-        return redirect('admin/news')->with('success', 'Deleted');
+        Cart::remove($id);
+        $count=Cart::count();
+        return response()->json($count);
+        // return back()->with('success_message', 'Item has been removed!');
     }
 }

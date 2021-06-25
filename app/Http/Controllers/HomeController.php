@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\News;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         // return Inertia::render("home");
-        return view('home');
+        $news=News::orderBy("id","DESC")->take(2)->get();
+        return view('home')->with(array("news"=>$news));
     }
 }
